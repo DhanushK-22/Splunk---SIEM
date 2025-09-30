@@ -30,13 +30,13 @@ but the thing is it only show the revelant field in the above command so that's 
 
 
 
-### 2. Identify Top Queried Domains
+ 2. Identify Top Queried Domains
 Analyze domain frequency to detect suspicious activity:
 index=* OR index=_* sourcetype=dns_sample
 | stats count by domain
 
 
-### 3. Investigate Suspicious Systems
+3. Investigate Suspicious Systems
 To find systems querying a specific malicious domain:
 index=* sourcetype=dns_sample fqdn="maliciousdomain.com"
 | top limit=10 src_ip
