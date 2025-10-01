@@ -26,19 +26,24 @@ Some raw events may not contain structured fields. Initially, filter relevant ev
 ```spl
 index=* sourcetype=dns_sample 
 | regex _raw="(?i)\b(dns|domain|query|response|port 53)\b"
+```
 but the thing is it only show the revelant field in the above command so that's why we gonna create a new field which would be easier to analyse
 
 
 
  2. Identify Top Queried Domains
 Analyze domain frequency to detect suspicious activity:
+```
 index=* OR index=_* sourcetype=dns_sample
 | stats count by domain
+```
 
 
 3. Investigate Suspicious Systems
 To find systems querying a specific malicious domain:
+```
 index=* sourcetype=dns_sample fqdn="maliciousdomain.com"
 | top limit=10 src_ip
+```
 why we are using top comm is beacuse it list out how many system have been made request to this server or else we can use table comm
 
